@@ -1,0 +1,337 @@
+{
+	"info": {
+		"_postman_id": "a96e3211-f010-4b70-bae5-846bc37b36c6",
+		"name": "Integration Session",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "15339250"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}services/oauth2/token?grant_type=client_credentials&client_id={{Consumer_Key}}&client_secret={{consumer_secret}}",
+					"host": [
+						"{{baseurl}}services"
+					],
+					"path": [
+						"oauth2",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials"
+						},
+						{
+							"key": "client_id",
+							"value": "{{Consumer_Key}}"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{consumer_secret}}"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case 1",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D7F000003BilY!ARcAQCseMh5aruh1wOf8YtkxIjlaPv2al8HX9cQXoEsTJYbHnNnZ_YhUM_2vStYeLpAGRiZhkCBxu6ZAu7fr6Rzjxc2hZYdm",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/services/data/v58.0/query/?q=SELECT Id,Type__c,Name FROM Policy__c WHERE Customer__r.Client_Id__c = 'cus12345'",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"services",
+						"data",
+						"v58.0",
+						"query",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "SELECT Id,Type__c,Name FROM Policy__c WHERE Customer__r.Client_Id__c = 'cus12345'"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case 2",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D7F000003BilY!ARcAQCseMh5aruh1wOf8YtkxIjlaPv2al8HX9cQXoEsTJYbHnNnZ_YhUM_2vStYeLpAGRiZhkCBxu6ZAu7fr6Rzjxc2hZYdm",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"FirstName\" : \"Prashnat\",\n  \"LastName\" : \"Kumar\",\n  \"Email\":\"p@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/services/data/v55.0/sobjects/Lead/"
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case 3",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D7F000003BilY!ARcAQCseMh5aruh1wOf8YtkxIjlaPv2al8HX9cQXoEsTJYbHnNnZ_YhUM_2vStYeLpAGRiZhkCBxu6ZAu7fr6Rzjxc2hZYdm",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"allOrNone\" : true,\n   \"compositeRequest\": [{\n            \"body\": {\n               \"FirstName\": \"Prashant\",\n               \"LastName\": \"Test for api\",\n               \"RecordTypeId\":\"0127F000000SdVLQA0\",\n               \"Client_Id__c\":\"CUS0208\"\n            },\n            \"method\": \"POST\",\n            \"referenceId\": \"reference_id_account_1\",\n            \"url\": \"/services/data/v58.0/sobjects/Account/\"\n         },\n         {\n            \"body\": {\n                \"Type__c\":\"Term\",\n               \"Customer__c\": \"@{reference_id_account_1.id}\",\n               \"Start_Date__c\":\"2023-07-09\",\n               \"Policy_Id__c\":\"P0208\",\n               \"Year__c\":\"15\"\n            },\n            \"method\": \"POST\",\n            \"referenceId\": \"reference_id_policy_1\",\n            \"url\": \"/services/data/v58.0/sobjects/Policy__c/\"\n         }\n         \n      ]\n}"
+				},
+				"url": "{{baseurl}}services/data/v58.0/composite/"
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case 4",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D7F000003BilY!ARcAQCseMh5aruh1wOf8YtkxIjlaPv2al8HX9cQXoEsTJYbHnNnZ_YhUM_2vStYeLpAGRiZhkCBxu6ZAu7fr6Rzjxc2hZYdm",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"records\" :[{\n    \"attributes\" : {\"type\" : \"Account\", \"referenceId\" : \"ref1\"},\n    \"FirstName\": \"Arpit\",\n    \"LastName\": \"Test for Tree api\",\n    \"RecordTypeId\":\"0127F000000SdVLQA0\",\n    \"Client_Id__c\":\"CUS0207\",\n    \"Policies__r\" : {\n      \"records\" : [{\n         \"attributes\" : {\"type\" : \"Policy__c\", \"referenceId\" : \"ref2\"},\n         \"Type__c\" : \"Health\",\n         \"Start_Date__c\" : \"2023-07-25\",\n         \"Policy_Id__c\" : \"P0207\",\n         \"Policy_Documents__r\":{\n         \"records\" : [{\n         \"attributes\" : {\"type\" : \"Policy_Document__c\", \"referenceId\" : \"ref3\"},\n         \"Name\" : \"Aadhar Card\",\n         \"Document_Link__c\" : \"www.google.com\"\n         },\n         {\n         \"attributes\" : {\"type\" : \"Policy_Document__c\", \"referenceId\" : \"ref4\"},\n         \"Name\" : \"Pan Card\",\n         \"Document_Link__c\" : \"www.google.com\"\n         }\n         ]\n        }\n         }]\n        \n      }\n    }]\n}"
+				},
+				"url": "{{baseurl}}/services/data/v58.0/composite/tree/Account"
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case 5",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D7F000003BilY!ARcAQCseMh5aruh1wOf8YtkxIjlaPv2al8HX9cQXoEsTJYbHnNnZ_YhUM_2vStYeLpAGRiZhkCBxu6ZAu7fr6Rzjxc2hZYdm",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"allOrNone\" : true,\n   \"compositeRequest\": [{\n            \"body\": {\n               \"PersonEmail\":\"xyz@cgl.com\"\n            },\n            \"method\": \"PATCH\",\n            \"referenceId\": \"reference_id_account_1\",\n            \"url\": \"/services/data/v58.0/sobjects/Account/Client_Id__c/cus12345\"\n         },\n         {\n            \"body\": {\n               \"Year__c\":\"2\"\n               \n            },\n            \"method\": \"PATCH\",\n            \"referenceId\": \"reference_id_policy_1\",\n            \"url\": \"/services/data/v58.0/sobjects/Policy__c/Policy_Id__c/P1122\"\n         }\n      ]\n}\n"
+				},
+				"url": "{{baseurl}}services/data/v58.0/composite"
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case 6",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D7F000003BilY!ARcAQCseMh5aruh1wOf8YtkxIjlaPv2al8HX9cQXoEsTJYbHnNnZ_YhUM_2vStYeLpAGRiZhkCBxu6ZAu7fr6Rzjxc2hZYdm",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"graphs\": [{\n      \"graphId\": \"graph1\",\n      \"compositeRequest\": [{\n            \"method\": \"GET\",\n            \"referenceId\": \"reference_id_account_1\",\n            \"url\": \"/services/data/v55.0/sobjects/Account/Client_Id__c/cus12345\"\n         },\n         {\n            \"url\" : \"/services/data/v50.0/sobjects/Policy__c/\",\n            \"body\" : {\n                \"Type__c\":\"Vehicle\",\n                \"Policy_Id__c\":\"P0206\",\n                \"Customer__c\" : \"@{reference_id_account_1.Id}\"\n            },\n            \"method\" : \"POST\",\n            \"referenceId\" : \"reference_id_policy_1\"\n        }\n      ]\n   }]\n}"
+				},
+				"url": "{{baseurl}}/services/data/v55.0/composite/graph"
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case 7",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D7F000003BilY!ARcAQCseMh5aruh1wOf8YtkxIjlaPv2al8HX9cQXoEsTJYbHnNnZ_YhUM_2vStYeLpAGRiZhkCBxu6ZAu7fr6Rzjxc2hZYdm",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inputs\" : [{\n        \"policyId\":\"P0206\"\n    }]\n\n}"
+				},
+				"url": "{{baseurl}}/services/data/v53.0/actions/custom/flow/Policy_Inactive"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "00D7F000003BilY!ARcAQIDCd5XyMUUUMT.MNR33iPfrb5WTbwT3djzk0gW36EoeFbJFpLkOlqHe2nOKcS.m8z7zfkqNI55_kLhMm.MHw_B7qLah"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseurl",
+			"value": "arpitvijay-dev-ed.my.salesforce.com/"
+		},
+		{
+			"key": "consumer_secret",
+			"value": "41BBE299ABB374C32E09213E8948F140935E6266EBEAF723AD0881491C189BDF"
+		},
+		{
+			"key": "username",
+			"value": "api.user@arpitvijayvergiya.com"
+		},
+		{
+			"key": "password",
+			"value": "API@User1234"
+		},
+		{
+			"key": "Consumer_Key",
+			"value": "3MVG9d8..z.hDcPJlp3mIWpBUFwghbgcyLKPkp39Pf3MNbsVwaPG3cjIZ14f1H9oImX1995sUMYv0y8Vhj0CB",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "00D7F000003BilY!ARcAQIDCd5XyMUUUMT.MNR33iPfrb5WTbwT3djzk0gW36EoeFbJFpLkOlqHe2nOKcS.m8z7zfkqNI55_kLhMm.MHw_B7qLah",
+			"type": "string"
+		}
+	]
+}
